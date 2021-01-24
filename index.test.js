@@ -23,7 +23,7 @@ const inArrowFunctionComponent = hook =>
   `const Comp = () => { ${hook}(); return null; }`
 
 const expectedError =
-  "Do not use React Hooks directly in a component. Put it in a custom hook to contextualize the hook's usage."
+  'Do not use React Hooks directly in a component. Abstract the functionality into a custom hook and use that instead.'
 
 rt.run('prefer-custom-hooks', rule, {
   valid: [
