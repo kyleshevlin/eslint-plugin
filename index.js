@@ -1,4 +1,17 @@
-const { REACT_HOOKS } = require('./constants')
+const REACT_HOOKS = new Set([
+  'useCallback',
+  'useContext',
+  'useDebugValue',
+  'useEffect',
+  'useImperativeHandle',
+  'useLayoutEffect',
+  'useMemo',
+  'useReducer',
+  'useRef',
+  'useState',
+])
+
+const HOOK_PATTERN = /^use/
 
 function getHookParent(node) {
   if (node.type === 'Program') return
@@ -16,8 +29,6 @@ function getHookParent(node) {
 
   return getHookParent(node.parent)
 }
-
-const HOOK_PATTERN = /^use/
 
 module.exports = {
   meta: {
