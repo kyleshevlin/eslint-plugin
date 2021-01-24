@@ -17,6 +17,8 @@ function getHookParent(node) {
   return getHookParent(node.parent)
 }
 
+const HOOK_PATTERN = /^use/
+
 module.exports = {
   meta: {
     type: 'suggestion',
@@ -27,7 +29,7 @@ module.exports = {
         if (REACT_HOOKS.has(node.name)) {
           const hookParent = getHookParent(node)
 
-          if (hookParent && !/^use/.test(hookParent.id.name)) {
+          if (hookParent && !HOOK_PATTERN.test(hookParent.id.name)) {
             context.report({
               node,
               message:
