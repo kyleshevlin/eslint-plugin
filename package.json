@@ -13,7 +13,7 @@
     "Hooks"
   ],
   "author": "Kyle Shevlin <kyle.a.shevlin@gmail.com> (https://kyleshevlin.com)",
-  "repository": "git@github.com:kyleshevlin/eslint-plugin-prefer-custom-hooks.git",
+  "repository": "git@github.com:kyleshevlin/eslint-plugin.git",
   "license": "MIT",
   "peerDependencies": {
     "eslint": ">=0.8.0"
