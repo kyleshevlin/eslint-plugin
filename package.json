@@ -1,6 +1,6 @@
 {
   "name": "@kyleshevlin/eslint-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An ESLint rule to encourage using custom hook abstractions",
   "main": "index.js",
   "scripts": {
