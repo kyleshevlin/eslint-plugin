@@ -1,27 +1,35 @@
 # @kyleshevlin/eslint-plugin
 
-This ESLint plugin has a single rule, `prefer-custom-hooks`. It is designed to encourage you to use custom hooks in your React components instead of using React Hooks directly.
+This ESLint plugin has a single rule, `prefer-custom-hooks`. It is designed to encourage the use of custom hooks in your React components instead of using React Hooks directly. This encourages correct encapsulation of all related elements of the hook's concern.
 
 ## Installation
 
 Install the plugin:
 
 ```
-npm i --save-dev @kyleshevlin/eslint-plugin
+npm install --save-dev @kyleshevlin/eslint-plugin
+```
+
+Or
+
+```
+yarn add -D @kyleshevlin/eslint-plugin
 ```
 
 And configure it in your ESLint config:
 
 ```
 {
-  plugins: ['kyleshevlin'],
+  plugins: ['@kyleshevlin'],
   rules: [
-    "kyleshevlin/prefer-custom-hooks": "error"
+    "@kyleshevlin/prefer-custom-hooks": "error"
   ]
 }
 ```
 
 ## Incorrect
+
+Here we are using React Hooks directly inside a component with no custom hook abstraction.
 
 ```jsx
 function MyComponent() {
@@ -35,6 +43,8 @@ function MyComponent() {
 ```
 
 ## Correct
+
+Here we abstract the functionality into a custom hook, encapsulating the concerns of `state` and its `handlers` together.
 
 ```jsx
 function useBool() {
