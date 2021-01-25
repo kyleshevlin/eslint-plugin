@@ -1,7 +1,7 @@
 {
-  "name": "eslint-plugin-prefer-custom-hooks",
-  "version": "1.0.0",
-  "description": "An ESLint rule to indicate when a React component uses a React Hook directly, instead of indirectly with a custom hook abstraction.",
+  "name": "@kyleshevlin/eslint-plugin",
+  "version": "0.1.0",
+  "description": "An ESLint rule to encourage using custom hook abstractions",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -13,7 +13,11 @@
     "Hooks"
   ],
   "author": "Kyle Shevlin <kyle.a.shevlin@gmail.com> (https://kyleshevlin.com)",
+  "repository": "git@github.com:kyleshevlin/eslint-plugin-prefer-custom-hooks.git",
   "license": "MIT",
+  "peerDependencies": {
+    "eslint": ">=0.8.0"
+  },
   "devDependencies": {
     "eslint": "^7.17.0",
     "jest": "^26.6.3"

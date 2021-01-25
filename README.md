@@ -1,22 +1,22 @@
-# eslint-plugin-prefer-custom-hooks
+# @kyleshevlin/eslint-plugin
 
-This ESLint plugin is designed to encourage you to use custom hooks in your React components instead of using React Hooks directly.
+This ESLint plugin has a single rule, `prefer-custom-hooks`. It is designed to encourage you to use custom hooks in your React components instead of using React Hooks directly.
 
 ## Installation
 
 Install the plugin:
 
 ```
-npm i --save-dev eslint-plugin-prefer-custom-hooks
+npm i --save-dev @kyleshevlin/eslint-plugin
 ```
 
-And declare it in your ESLint config:
+And configure it in your ESLint config:
 
 ```
 {
-  plugins: ['prefer-custom-hooks'],
+  plugins: ['kyleshevlin'],
   rules: [
-    "prefer-custom-hooks": "error"
+    "kyleshevlin/prefer-custom-hooks": "error"
   ]
 }
 ```

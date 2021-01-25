@@ -1,5 +1,5 @@
-const rule = require('./index')
-const { REACT_HOOKS } = require('./constants')
+const rule = require('../rules/prefer-custom-hooks')
+const { REACT_HOOKS } = require('../src/constants')
 const RuleTester = require('eslint').RuleTester
 
 const rt = new RuleTester({
