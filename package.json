@@ -15,6 +15,9 @@
   "author": "Kyle Shevlin <kyle.a.shevlin@gmail.com> (https://kyleshevlin.com)",
   "repository": "git@github.com:kyleshevlin/eslint-plugin.git",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "eslint": ">=0.8.0"
   },
