@@ -114,6 +114,23 @@ function Counter() {
 }
 ```
 
+## Options
+
+While it is not recommended, the `prefer-custom-hooks` rule does support an `allow` list as an option. It can be set up like so:
+
+```
+{
+  plugins: ['@kyleshevlin'],
+  rules: [
+    "@kyleshevlin/prefer-custom-hooks": ["error", { "allow": ["useMemo"] }]
+  ]
+}
+```
+
+In this particular setup, using `useMemo` inside of a React component will **not** result in an ESLint error.
+
+It is recommended that you use the `allow` option sparingly. It is likely wiser to use the occasional `eslint-disable` than to allow a particular hook throughout your project.
+
 ## Further Reading
 
 I discuss this concept in depth in my [useEncapsulation](https://kyleshevlin.com/use-encapsulation) blog post.

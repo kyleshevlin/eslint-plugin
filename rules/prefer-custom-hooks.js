@@ -1,4 +1,5 @@
 const { HOOK_PATTERN, REACT_HOOKS } = require('../src/constants')
+const { difference } = require('../src/utils')
 
 function getHookParent(node) {
   if (node.type === 'Program') return
@@ -22,9 +23,13 @@ module.exports = {
     type: 'suggestion',
   },
   create(context) {
+    const options = context.options[0] || { allow: [] }
+    const allowedHooks = new Set(options.allow)
+    const hooksToCheck = difference(REACT_HOOKS, allowedHooks)
+
     return {
       Identifier(node) {
-        if (REACT_HOOKS.has(node.name)) {
+        if (hooksToCheck.has(node.name)) {
           const hookParent = getHookParent(node)
 
           if (hookParent && !HOOK_PATTERN.test(hookParent.id.name)) {
