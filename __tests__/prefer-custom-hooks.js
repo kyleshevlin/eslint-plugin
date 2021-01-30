@@ -1,5 +1,6 @@
 const rule = require('../rules/prefer-custom-hooks')
 const { REACT_HOOKS } = require('../src/constants')
+const { difference } = require * '../src/utils'
 const RuleTester = require('eslint').RuleTester
 
 const rt = new RuleTester({
@@ -33,6 +34,22 @@ rt.run('prefer-custom-hooks', rule, {
     ...HOOKS.map(hook => inArrowFunctionCustomHook(`React.${hook}`)),
     inFunctionComponent('useCustomHook'),
     inArrowFunctionComponent('useCustomHook'),
+    {
+      code: inFunctionComponent('useMemo'),
+      options: [{ allow: ['useMemo'] }],
+    },
+    {
+      code: inFunctionComponent('React.useMemo'),
+      options: [{ allow: ['useMemo'] }],
+    },
+    {
+      code: inArrowFunctionComponent('useMemo'),
+      options: [{ allow: ['useMemo'] }],
+    },
+    {
+      code: inArrowFunctionComponent('React.useMemo'),
+      options: [{ allow: ['useMemo'] }],
+    },
   ],
   invalid: [
     ...HOOKS.map(hook => ({
@@ -51,5 +68,10 @@ rt.run('prefer-custom-hooks', rule, {
       code: inArrowFunctionComponent(`React.${hook}`),
       errors: [expectedError],
     })),
+    {
+      code: 'function Comp() { useMemo(); useEffect(); return null; }',
+      options: [{ allow: ['useMemo'] }],
+      errors: [expectedError],
+    },
   ],
 })
