@@ -1,6 +1,9 @@
 # @kyleshevlin/eslint-plugin
 
-This ESLint plugin has a single rule, `prefer-custom-hooks`. It is designed to encourage the use of custom hooks in your React components instead of using React Hooks directly. This encourages correct encapsulation of all related elements of the hook's concern.
+This is my personal collection of ESLint rules. It contains the following rules:
+
+- `prefer-custom-hooks`
+- `no-skipped-or-focused-tests`
 
 ## Installation
 
@@ -18,119 +21,12 @@ yarn add -D @kyleshevlin/eslint-plugin
 
 And configure it in your ESLint config:
 
-```
+```javascript
 {
   plugins: ['@kyleshevlin'],
   rules: [
-    "@kyleshevlin/prefer-custom-hooks": "error"
+    "@kyleshevlin/prefer-custom-hooks": "error",
+    "@kyleshevlin/no-skipped-or-focused-tests": "error",
   ]
 }
 ```
-
-## Incorrect
-
-Here we are using React Hooks directly inside a component with no custom hook abstraction.
-
-```jsx
-function Counter() {
-  const [state, setState] = React.useState(0)
-
-  const inc = React.useCallback(() => {
-    setState(s => s + 1)
-  })
-
-  const dec = React.useCallback(() => {
-    setState(s => s - 1)
-  })
-
-  const reset = React.useCallback(() => {
-    setState(0)
-  })
-
-  return (
-    <div>
-      <div>Count: {state}</div>
-      <div>
-        <button type="button" onClick={inc}>
-          +
-        </button>
-        <button type="button" onClick={dec}>
-          -
-        </button>
-        <button type="button" onClick={reset}>
-          reset
-        </button>
-      </div>
-    </div>
-  )
-}
-```
-
-## Correct
-
-Here we abstract the functionality into a custom hook, encapsulating the concerns of `state` and its `handlers` together.
-
-```jsx
-function useCounter(initialState = 0) {
-  const [state, setState] = React.useState(initialState)
-
-  const handlers = React.useMemo(
-    () => ({
-      inc: () => {
-        setState(s => s + 1)
-      },
-      dec: () => {
-        setState(s => s - 1)
-      },
-      reset: () => {
-        setState(initialState)
-      },
-    }),
-    [initialState]
-  )
-
-  return [state, handlers]
-}
-
-function Counter() {
-  const [state, { inc, dec, reset }] = useCounter()
-
-  return (
-    <div>
-      <div>Count: {state}</div>
-      <div>
-        <button type="button" onClick={inc}>
-          +
-        </button>
-        <button type="button" onClick={dec}>
-          -
-        </button>
-        <button type="button" onClick={reset}>
-          reset
-        </button>
-      </div>
-    </div>
-  )
-}
-```
-
-## Options
-
-While it is not recommended, the `prefer-custom-hooks` rule does support an `allow` list as an option. It can be set up like so:
-
-```
-{
-  plugins: ['@kyleshevlin'],
-  rules: [
-    "@kyleshevlin/prefer-custom-hooks": ["error", { "allow": ["useMemo"] }]
-  ]
-}
-```
-
-In this particular setup, using `useMemo` inside of a React component will **not** result in an ESLint error.
-
-It is recommended that you use the `allow` option sparingly. It is likely wiser to use the occasional `eslint-disable` than to allow a particular hook throughout your project.
-
-## Further Reading
-
-I discuss this concept in depth in my [useEncapsulation](https://kyleshevlin.com/use-encapsulation) blog post.
