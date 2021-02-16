@@ -19,7 +19,7 @@ module.exports = {
           context.report(node, `Do not use "${name}".`)
         }
       },
-      MemberExpression(node /*: any */) {
+      MemberExpression(node) {
         const { object, property } = node
 
         if (

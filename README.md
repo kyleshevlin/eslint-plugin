@@ -5,6 +5,8 @@ This is my personal collection of ESLint rules. It contains the following rules:
 - `prefer-custom-hooks`
 - `no-skipped-or-focused-tests`
 
+Refer to each rule's READMEs in the `/docs/rules` directory.
+
 ## Installation
 
 Install the plugin:
