@@ -1,7 +1,6 @@
 const rule = require('../rules/prefer-custom-hooks')
-const { REACT_HOOKS } = require('../src/constants')
-const { difference } = require * '../src/utils'
 const RuleTester = require('eslint').RuleTester
+const { REACT_HOOKS } = require('../src/constants')
 
 const rt = new RuleTester({
   parserOptions: {
