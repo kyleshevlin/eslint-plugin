@@ -11,65 +11,90 @@ const rt = new RuleTester({
 
 const HOOKS = Array.from(REACT_HOOKS)
 
-const inFunctionCustomHook = hook =>
-  `function useCustomHook() { ${hook}(); return null; }`
+const inFunctionCustomHook = code =>
+  `function useCustomHook() { ${code}; return null; }`
 
-const inArrowFunctionCustomHook = hook =>
-  `const useCustomHook = () => { ${hook}(); return null; }`
+const inArrowFunctionCustomHook = code =>
+  `const useCustomHook = () => { ${code}; return null; }`
 
-const inFunctionComponent = hook => `function Comp() { ${hook}(); return null }`
+const inFunctionComponent = code => `function Comp() { ${code}; return null }`
 
-const inArrowFunctionComponent = hook =>
-  `const Comp = () => { ${hook}(); return null; }`
+const inArrowFunctionComponent = code =>
+  `const Comp = () => { ${code}; return null; }`
 
 const expectedError =
   'Do not use React Hooks directly in a component. Abstract the functionality into a custom hook and use that instead.'
 
 rt.run('prefer-custom-hooks', rule, {
   valid: [
-    ...HOOKS.map(inFunctionCustomHook),
-    ...HOOKS.map(hook => inFunctionCustomHook(`React.${hook}`)),
-    ...HOOKS.map(inArrowFunctionCustomHook),
-    ...HOOKS.map(hook => inArrowFunctionCustomHook(`React.${hook}`)),
-    inFunctionComponent('useCustomHook'),
-    inArrowFunctionComponent('useCustomHook'),
+    ...HOOKS.map(hook => inFunctionCustomHook(`${hook}()`)),
+    ...HOOKS.map(hook => inFunctionCustomHook(`React.${hook}()`)),
+    ...HOOKS.map(hook => inArrowFunctionCustomHook(`${hook}()`)),
+    ...HOOKS.map(hook => inArrowFunctionCustomHook(`React.${hook}()`)),
+    inFunctionComponent('useCustomHook()'),
+    inArrowFunctionComponent('useCustomHook()'),
     {
-      code: inFunctionComponent('useMemo'),
+      code: inFunctionComponent('useMemo()'),
       options: [{ allow: ['useMemo'] }],
     },
     {
-      code: inFunctionComponent('React.useMemo'),
+      code: inFunctionComponent('React.useMemo()'),
       options: [{ allow: ['useMemo'] }],
     },
     {
-      code: inArrowFunctionComponent('useMemo'),
+      code: inArrowFunctionComponent('useMemo()'),
       options: [{ allow: ['useMemo'] }],
     },
     {
-      code: inArrowFunctionComponent('React.useMemo'),
+      code: inArrowFunctionComponent('React.useMemo()'),
       options: [{ allow: ['useMemo'] }],
     },
   ],
   invalid: [
     ...HOOKS.map(hook => ({
-      code: inFunctionComponent(hook),
+      code: inFunctionComponent(`${hook}()`),
       errors: [expectedError],
     })),
     ...HOOKS.map(hook => ({
-      code: inFunctionComponent(`React.${hook}`),
+      code: inFunctionComponent(`React.${hook}()`),
       errors: [expectedError],
     })),
     ...HOOKS.map(hook => ({
-      code: inArrowFunctionComponent(hook),
+      code: inArrowFunctionComponent(`${hook}()`),
       errors: [expectedError],
     })),
     ...HOOKS.map(hook => ({
-      code: inArrowFunctionComponent(`React.${hook}`),
+      code: inArrowFunctionComponent(`React.${hook}()`),
       errors: [expectedError],
     })),
     {
-      code: 'function Comp() { useMemo(); useEffect(); return null; }',
+      code: inFunctionComponent('useMemo(); useEffect()'),
       options: [{ allow: ['useMemo'] }],
+      errors: [expectedError],
+    },
+    {
+      code: inFunctionComponent('useCustomHook()'),
+      options: [{ block: ['useCustomHook'] }],
+      errors: [expectedError],
+    },
+    {
+      code: inFunctionComponent('useCustomHook()'),
+      options: [{ block: ['useCustomHook'] }],
+      errors: [expectedError],
+    },
+    {
+      code: inArrowFunctionComponent('useCustomHook()'),
+      options: [{ block: ['useCustomHook'] }],
+      errors: [expectedError],
+    },
+    {
+      code: inArrowFunctionComponent('useCustomHook()'),
+      options: [{ block: ['useCustomHook'] }],
+      errors: [expectedError],
+    },
+    {
+      code: inFunctionComponent('useMemo(); useCustomHook()'),
+      options: [{ allow: ['useMemo'], block: ['useCustomHook'] }],
       errors: [expectedError],
     },
   ],
