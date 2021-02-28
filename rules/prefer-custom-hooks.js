@@ -1,5 +1,5 @@
 const { HOOK_PATTERN, REACT_HOOKS } = require('../src/constants')
-const { difference } = require('../src/utils')
+const { difference, union } = require('../src/utils')
 
 function getHookParent(node) {
   if (node.type === 'Program') return
@@ -18,14 +18,22 @@ function getHookParent(node) {
   return getHookParent(node.parent)
 }
 
+const DEFAULT_OPTIONS = {
+  block: [],
+  allow: [],
+}
+
 module.exports = {
   meta: {
     type: 'suggestion',
   },
   create(context) {
-    const options = context.options[0] || { allow: [] }
+    const userOptions = context.options[0] || {}
+    const options = { ...DEFAULT_OPTIONS, ...userOptions }
+
     const allowedHooks = new Set(options.allow)
-    const hooksToCheck = difference(REACT_HOOKS, allowedHooks)
+    const blockedHooks = union(REACT_HOOKS, new Set(options.block))
+    const hooksToCheck = difference(blockedHooks, allowedHooks)
 
     return {
       Identifier(node) {
