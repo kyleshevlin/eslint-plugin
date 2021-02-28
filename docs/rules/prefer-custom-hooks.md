@@ -127,20 +127,38 @@ const MyComponent = () => { useMyCustomHook(); return null }
 
 ## Options
 
-While it is not recommended, the `prefer-custom-hooks` rule does support an `allow` list as an option. It can be set up like so:
+There are two options for `prefer-custom-hooks`: an `allow` list, and a `block` list.
 
-```
+#### `allow`
+
+While it is not recommended, the `allow` list is an array of React hooks that will be exempted from triggering the rule. For example, you may want to allow `useMemo` to be used directly in components. You can set that up like so:
+
+```json
 {
-  plugins: ['@kyleshevlin'],
+  plugins: ["@kyleshevlin"],
   rules: [
     "@kyleshevlin/prefer-custom-hooks": ["error", { "allow": ["useMemo"] }]
   ]
 }
 ```
 
-In this particular setup, using `useMemo` inside of a React component will **not** result in an ESLint error.
-
 It is recommended that you use the `allow` option sparingly. It is likely wiser to use the occasional `eslint-disable` than to allow a particular hook throughout your project.
+
+#### `block`
+
+On the other hand, the `block` list is an array of additional custom hooks that you would like to prevent from being used directly in a component. Perhaps you have a custom hook that really should be encapsulated with other hooks. Add it to the block list like so:
+
+```json
+{
+  plugins: ["@kyleshevlin"],
+  rules: [
+    "@kyleshevlin/prefer-custom-hooks": [
+      "error",
+      { "block": ["useMyCustomHook"] }
+    ]
+  ]
+}
+```
 
 ## Further Reading
 
