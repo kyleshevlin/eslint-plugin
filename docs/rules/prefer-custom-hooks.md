@@ -155,8 +155,8 @@ On the other hand, the `block` list is an array of additional custom hooks that 
     "@kyleshevlin/prefer-custom-hooks": [
       "error",
       { "block": ["useMyCustomHook"] }
-    }
-  ]
+    ]
+  }
 }
 ```
 
