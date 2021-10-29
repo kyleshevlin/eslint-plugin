@@ -1,6 +1,10 @@
 # @kyleshevlin/eslint-plugin
 
-📢 **If you're here for the `prefer-custom-hooks` rule, please use [eslint-plugin-use-encapsulation](https://github.com/kyleshevlin/eslint-plugin-use-encapsulation) instead.** 📢
+📢📢📢
+
+**If you're here for the `prefer-custom-hooks` rule, please use [eslint-plugin-use-encapsulation](https://github.com/kyleshevlin/eslint-plugin-use-encapsulation) instead.**
+
+📢📢📢
 
 This is my personal collection of ESLint rules. It contains the following rules:
 
